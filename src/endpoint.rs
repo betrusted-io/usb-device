@@ -112,6 +112,12 @@ impl<B: UsbBus, D: EndpointDirection> Endpoint<'_, B, D> {
     pub fn unstall(&self) {
         self.bus().set_stalled(self.address, false);
     }
+
+    /// Set EP0 descriptor control to OUT (for the STATUS at the end of a control packet)
+    /// Required for PHYs that have an EP0 that can only be IN or OUT (but not both at the same time).
+    pub fn ep0_out(&self) {
+        self.bus().set_ep0_out();
+    }
 }
 
 impl<B: UsbBus> Endpoint<'_, B, In> {

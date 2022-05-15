@@ -105,6 +105,12 @@ pub trait UsbBus: Sync + Sized {
     /// Gets whether the STALL condition is set for an endpoint.
     fn is_stalled(&self, ep_addr: EndpointAddress) -> bool;
 
+    /// Instruct EP0 to configure itself with an OUT descriptor, so that it may receive a STATUS
+    /// update during configuration. This is for devices that support an EP0 which can only either
+    /// be IN or OUT, but not both at the same time. Devices with both IN/OUT may leave this as
+    /// an empty stub.
+    fn set_ep0_out(&self);
+
     /// Causes the USB peripheral to enter USB suspend mode, lowering power consumption and
     /// preparing to detect a USB wakeup event. This will be called after
     /// [`poll`](crate::device::UsbDevice::poll) returns [`PollResult::Suspend`]. The device will

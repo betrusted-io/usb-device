@@ -179,6 +179,7 @@ impl<B: UsbBus> ControlPipe<'_, B> {
             }
             ControlState::DataInLast => {
                 self.ep_out.unstall();
+                self.ep_out.ep0_out();
                 self.state = ControlState::StatusOut;
             }
             ControlState::StatusIn => {

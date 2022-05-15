@@ -234,6 +234,7 @@ fn _ensure_sync() {
         fn poll(&self) -> PollResult {
             PollResult::None
         }
+        fn set_ep0_out(&self) {}
     }
 
     struct DummyClass<'a, B: UsbBus> {
